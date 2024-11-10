@@ -77,10 +77,10 @@ dig @a.root-servers.net google.com
 #### Query for an MX Record
 
 ```bash
-dig @localhost -p 53 example.com MX
+dig dig @ns1.google.com yahoo.com
 ```
 
-These commands query the server for the specified record types, and you should see responses from the Hermes DNS server with information about `example.com`.
+These commands query the server for the specified record types.
 
 ### Web Interface
 
@@ -93,10 +93,8 @@ http://localhost:5380
 The web interface displays loaded DNS records and allows monitoring server status.
 
 
-- **Rust Warnings**: Set the `RUSTFLAGS` environment variable as shown above to suppress warnings.
 
-
-
+Made with ❤️ - Team ResolveX
 
 
 
