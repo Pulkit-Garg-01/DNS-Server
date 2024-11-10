@@ -75,14 +75,17 @@
     <td class="updates">{{updates}}</td>
     <td class="records">
       <table class="entry_table">
+        <tr>
+          <th class="entry_qtype">Type</th>
+          <th class="entry_host">Host</th>
+          <!-- <th class="entry_domain">Domain</th> -->
+          <th class="entry_ttl">TTL</th>
+        </tr>
         {{#each entries}}
         <tr>
           <td class="entry_qtype">{{record.type}}</td>
-          {{#if host}}
           <td class="entry_host">{{record.host}}</td>
-          {{/if}} {{#if txt}}
-          <td class="entry_host">{{record.domain}}</td>
-          {{/if}}
+          <!--  <td class="entry_domain">{{record.domain}}</td> -->
           <td class="entry_ttl">{{record.ttl}}</td>
         </tr>
         {{/each}}
