@@ -4,7 +4,9 @@
     <title>{{~> title}}</title>
     <style type="text/css">
     html {
-        font-family: sans-serif;
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
     }
 
     body {
@@ -15,45 +17,60 @@
     header {
         display: flex;
         width: 100%;
-        background-color: #eee;
-        height: 50px;
+        background-color: #005b96;
+        color: white;
+        height: 60px;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
     header h1 {
         flex: 6;
         margin: 0;
-        padding: 14px 0 0 20px;
-        font-size: 20px;
-        box-sizing: border-box;
+        padding: 0 20px;
+        font-size: 24px;
     }
+
     header nav {
         flex: 1;
     }
+
     header nav ul {
         margin: 0;
         padding: 0;
         display: flex;
+        justify-content: space-around;
     }
+
     header nav ul li {
         list-style-type: none;
-        margin: 0;
-        padding: 0;
-        flex: 1;
-        height: 50px;
     }
+
     header nav ul li a {
         text-decoration: none;
         display: block;
-        height: 50px;
-        width: 100%;
-        line-height: 50px;
-        text-align: center;
+        color: white;
+        padding: 15px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s;
     }
-    header nav ul li:nth-child(2n+1) {
-        background-color: #ddd;
+
+    header nav ul li a:hover {
+        background-color: #004080;
     }
 
     .main_content {
-        padding: 20px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .main_content h2 {
+        color: #005b96;
+        margin-bottom: 20px;
     }
     </style>
     {{~> header}}
@@ -61,7 +78,7 @@
 <body>
     <div class="main_wrapper">
         <header>
-            <h1>Hermes DNS</h1>
+            <h1>DNS SERVER</h1>
 
             <nav>
                 <ul>
