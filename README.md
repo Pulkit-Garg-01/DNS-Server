@@ -1,58 +1,104 @@
-Hermes DNS server
-=================
+# Hermes DNS Server
 
-![Rust](https://github.com/EmilHernvall/hermes/workflows/Rust/badge.svg)
+Hermes is a DNS server written in Rust, designed to be feature-rich, efficient, and customizable. This project provides a reliable and performant DNS server with additional functionality beyond basic DNS resolution.
 
-Hermes is a compact DNS server in safe rust. It provides:
+## Features
 
- * Quick and easy configuration through a few select command line parameters.
- * The ability to recursively resolve directly using the Internet root servers
-   out of the box, to spare you from trusting anybody else's name servers.
- * Alternatively, use it in forwarding mode to pass your queries onto a DNS
-   server of your choice.
- * The ability to act as an authoritative server for your own zones.
- * A compact API with dual support for HTML and JSON media types across the
-   same endpoints, for easy administration of zones and caching behavior.
+- **DNS Resolution**: Supports standard DNS resolution for common DNS record types (`A`, `AAAA`, `MX`, `NS`, etc.).
+- **TTL Configuration**: Configurable TTL (Time-to-Live) values for different records.
+- **Logging**: Logs DNS queries for monitoring and debugging.
+- **Web Server Interface**: A simple HTTP server running on port 5380 for monitoring and control.
 
-Why? As a developer, I usually run many hosts and docker containers on my own
-machine and assign them names using hosts.txt. I wanted a more convenient way
-of accomplishing that. Additionally, I like having some insight into the
-network traffic that passes in and out of my machine and network, and
-monitoring the DNS layer for anomalies is actually a rather convenient way of
-doing so.
+## Requirements
 
-Command Line Options
---------------------
+- Rust (latest stable version recommended)
+- Cargo (Rust’s package manager)
 
-This is the result of running `hermes -h`
+## Installation and Setup
 
-    Usage: hermes [options]
+### Clone the Repository
 
-    Options:
-        -h, --help          print this help menu
-        -a, --authority     disable support for recursive lookups, and serve only
-                            local zones
-        -f, --forward SERVER
-                            forward replies to specified dns server
-        -p, --port PORT     listen on specified port
+```bash
+git clone https://github.com/Pulkit-Garg-01/DNS-Server.git
+cd DNS-Server
+```
 
-API endpoints
--------------
+### Build the Project
 
-By default, the API will run on port 5380.
+Compile the project in release mode for optimized performance:
 
-All endpoints can return either JSON or HTML. When POST'ing, you can do so with
-either form data or json objects.
+```bash
+cargo build --release
+```
 
-The following endpoints are available:
+### Run the Server
 
- * /cache - List the current cache entries along with statistics
- * /authority - List current authoritative zones
- * /authority/[zone] - List the records within a zone
+Start the DNS server using the `cargo run` command:
 
-Contact
--------
+```bash
+cargo run
+```
 
-Comments and pull requests are welcome and encouraged.
+- The DNS server will listen on **port 53** by default for DNS queries.
+- The web interface will be available on **port 5380**.
 
-Author: Emil Hernvall <emil@c0la.se>
+
+
+
+By default, the server will:
+
+- Load DNS records from a specified zone file.
+- Listen on port 53 for DNS queries.
+- Provide a web interface on port 5380.
+## How It Works
+
+ResolveX operates as a DNS server by handling DNS requests and responding with the appropriate record information. Here’s a breakdown of its components and their functions:
+
+- DNS Client Handling: The client.rs file processes incoming DNS queries. When a query is received, the server checks the requested record type (such as A, AAAA, MX, etc.) and searches its internal database for a matching record. If found, it returns the record data to the requester.
+
+- TTL Management: Each DNS record has a configurable TTL (Time-to-Live) value, which defines how long the record is cached before it should be refreshed. The TTL values are set when records are added to the server’s database, allowing control over the caching behavior.
+
+- Web Interface: Hermes includes a web interface accessible at http://localhost:5380. The interface displays the current DNS records in an HTML table format and provides information such as the record type, host, and TTL. This makes it easy to monitor the records loaded into the server and track their status.
+
+- Logging: Each DNS query is logged for monitoring and debugging purposes. Logs include information about the type of query, the requested host, and any errors encountered during processing.
+
+- Concurrency: Hermes uses Rust’s concurrency features to handle multiple DNS queries simultaneously, making it responsive and efficient even under high load. This ensures that the server can process multiple requests without blocking.
+
+### Example DNS Query
+
+You can test DNS resolution using the `dig` command. Here are some examples:
+
+#### Query for an A Record
+
+```bash
+dig @a.root-servers.net google.com
+```
+
+#### Query for an MX Record
+
+```bash
+dig @localhost -p 53 example.com MX
+```
+
+These commands query the server for the specified record types, and you should see responses from the Hermes DNS server with information about `example.com`.
+
+### Web Interface
+
+To access the web interface, open a browser and go to:
+
+```
+http://localhost:5380
+```
+
+The web interface displays loaded DNS records and allows monitoring server status.
+
+
+- **Rust Warnings**: Set the `RUSTFLAGS` environment variable as shown above to suppress warnings.
+
+
+
+
+
+
+
+
