@@ -322,11 +322,5 @@ fn get_rootservers() -> Vec<DnsRecord> {
         addr: "2001:dc3::35".parse().unwrap(),
         ttl: TransientTtl(3600000),
     });
-
-    rootservers.push(DnsRecord::A {
-        domain: "server.nigga".to_string(),
-        addr: "10.81.20.25".parse().unwrap(),
-        ttl: TransientTtl(3600000),
-    });
     rootservers
 }
